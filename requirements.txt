@@ -2,6 +2,7 @@ aniso8601==3.0.2
 atomicwrites==1.2.1
 attrs==18.2.0
 Click==7.0
+config==0.4.0
 coverage==4.5.1
 Flask==1.0.2
 Flask-RESTful==0.3.6
@@ -16,4 +17,5 @@ pytest==3.8.2
 pytest-cov==2.6.0
 pytz==2018.5
 six==1.11.0
+upgrade-requirements==1.7.0
 Werkzeug==0.14.1
