@@ -11,7 +11,7 @@ class Product(Resource):
     """Class to handle post and get for product"""
 
     def post(self, name):
-        """Method to add a new product"""
+        """Method to add/create a new product"""
         if next(filter(lambda x: x['name'] == name, products), None):
             return {'message':
                     "A product with name '{}' already exists."
@@ -21,7 +21,9 @@ class Product(Resource):
 
         data = request.get_json()
         product = {'id': len(products) + 1,
-                   'name': name, 'price': data['price'],
-                   'category': data['category']}
+                   'name': name,
+                   'category': data['category'],
+                   'price': data['price']
+                   }
         products.append(product)
         return product, 201
