@@ -27,3 +27,14 @@ class Product(Resource):
                    }
         products.append(product)
         return product, 201
+
+    def delete(self, name):
+        """Method to delete a single product"""
+        # the products variable in this block is the outer 'products =[]'
+        # variable
+        global products
+        # list after the result of filtering
+        # looking for all the elements except the one that is going to be
+        # delated
+        products = list(filter(lambda x: x['name'] != name, products))
+        return {'message': 'item deleted'}
