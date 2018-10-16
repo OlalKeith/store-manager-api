@@ -23,3 +23,12 @@ class ProductTestCase(unittest.TestCase):
                                                   price='price')),
                                          content_type='application/json')
         self.assertEqual(add_product.status_code, 201)
+
+    def test_to_get_all_products(self):
+        """Test method to get all products"""
+        get_all_products = self.client().get('/api/v1/products',
+                                             data=json.dumps(
+                                                 dict(category='category',
+                                                      price='price')),
+                                             content_type='application/json')
+        self.assertEqual(get_all_products.status_code, 200)
