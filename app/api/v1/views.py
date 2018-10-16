@@ -27,3 +27,7 @@ class Product(Resource):
                    }
         products.append(product)
         return product, 201
+
+    def get(self, name):
+        product = next(filter(lambda x: x['name'] == name, products), None)
+        return{'product': product}, 200 if product else 404
