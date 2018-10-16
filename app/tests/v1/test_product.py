@@ -16,10 +16,19 @@ class ProductTestCase(unittest.TestCase):
         # }
 
     def test_to_add_product(self):
-        """Test method to add product"""
+        """Test method to add product(POST request)"""
         add_product = self.client().post('/api/v1/product/pencil',
                                          data=json.dumps(
                                              dict(category='category',
                                                   price='price')),
                                          content_type='application/json')
         self.assertEqual(add_product.status_code, 201)
+
+    def test_to_get_single_item(self):
+        """Test method to get a single product(GET request)"""
+        get_product = self.client().get('/api/v1/product/pencil',
+                                        data=json.dumps(
+                                            dict(category='category',
+                                                 price='price')),
+                                        content_type='application/json')
+        self.assertEqual(get_product.status_code, 200)
