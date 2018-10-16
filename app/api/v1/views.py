@@ -27,3 +27,11 @@ class Product(Resource):
                    }
         products.append(product)
         return product, 201
+
+
+class ProductList(Resource):
+    """Class to handle getting list of products"""
+
+    def get(self):
+        # returning a dic of products
+        return {'products': products}
