@@ -10,11 +10,12 @@ class ProductTestCase(unittest.TestCase):
         self.app = create_app('testing')
         self.client = self.app.test_client
 
-    def test_to_add_product(self):
-        """Test method to add product"""
-        add_product = self.client().post('/api/v1/product/pencil',
+    def test_create_sale(self):
+        """Test method to create a sale"""
+        create_sale = self.client().post('/api/v1/sale/pencil',
                                          data=json.dumps(
                                              dict(category='category',
+                                                  Quantity='Quantity',
                                                   price='price')),
                                          content_type='application/json')
-        self.assertEqual(add_product.status_code, 201)
+        self.assertEqual(create_sale.status_code, 201)
