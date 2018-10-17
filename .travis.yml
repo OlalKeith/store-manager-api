@@ -9,12 +9,6 @@ install:
 script: 
   - pytest -v --cov-report term-missing --cov=app
 
-branches:
-  except:
-  - master
-  only:
-  - ch-api-161204773
-
 after_success:
   - coveralls
 
