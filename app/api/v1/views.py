@@ -30,6 +30,27 @@ class Product(Resource):
         products.append(product)
         return product, 201
 
+    def put(self, name):
+        """Method to update/create a single product"""
+        # getting data from the request
+        data = request.get_json()
+        product = next(filter(lambda x: x['name'] == name, products), None)
+
+        if product is None:  # if there is no item, create one
+            product = {'product_id': len(products) + 1,
+                       'name': name,
+                       'category': data['category'],
+                       'price': data['price'],
+                       'Quantity': data['Quantity'],
+                       'Description': data['Description']
+                       }
+            products.append(product)
+
+        # if it already exists
+        else:
+            product.update(data)
+        return product, 200
+
 
 class ProductId(Resource):
     """Class to handle the delete endpoint"""

@@ -30,6 +30,26 @@ class Sales(Resource):
         sales.append(sale)
         return sale, 201
 
+    def put(self, name):
+        """Method to update/create a single sale"""
+
+        data = request.get_json()
+        sale = next(filter(lambda x: x['name'] == name, sales), None)
+
+        if sale is None:  # if there is no item, create one
+            sale = {'sales_id': len(sales) + 1,
+                    'product': name,
+                    'Quantity': data['Quantity'],
+                    'price': data['price'],
+                    'Date': my_date.isoformat()
+                    }
+            sales.append(sale)
+
+        # if it already exists
+        else:
+            sale.update(data)
+        return sale, 200
+
 
 class SalesId(Resource):
     """Class to handle delete of a sale"""
