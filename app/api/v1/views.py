@@ -8,7 +8,7 @@ products = []  # using in memory , just a python list
 
 
 class Product(Resource):
-    """Class to handle post and get for product"""
+    """Class to handle post for product"""
 
     def post(self, name):
         """Method to add/create a new product"""
@@ -20,10 +20,12 @@ class Product(Resource):
             # getting the json payload from a request
 
         data = request.get_json()
-        product = {'id': len(products) + 1,
+        product = {'product_id': len(products) + 1,
                    'name': name,
                    'category': data['category'],
-                   'price': data['price']
+                   'price': data['price'],
+                   'Quantity': data['Quantity'],
+                   'Description': data['Description']
                    }
         products.append(product)
         return product, 201
@@ -35,10 +37,12 @@ class Product(Resource):
         product = next(filter(lambda x: x['name'] == name, products), None)
 
         if product is None:  # if there is no item, create one
-            product = {'id': len(products) + 1,
+            product = {'product_id': len(products) + 1,
                        'name': name,
                        'category': data['category'],
-                       'price': data['price']
+                       'price': data['price'],
+                       'Quantity': data['Quantity'],
+                       'Description': data['Description']
                        }
             products.append(product)
 
