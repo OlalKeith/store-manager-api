@@ -11,7 +11,7 @@ sales = []  # using in memory , just a python list
 
 
 class Sales(Resource):
-    """Class to handle post and get for product"""
+    """Class to handle post for sales"""
 
     def post(self, name):
         """Method to add/create a new product"""
@@ -29,3 +29,12 @@ class Sales(Resource):
                 }
         sales.append(sale)
         return sale, 201
+
+
+class SalesId(Resource):
+    """Class to handle delete of a sale"""
+
+    def delete(self, id):
+        global sales
+        sales = list(filter(lambda x: x['sales_id'] != id, sales))
+        return {'message': 'sale deleted'}

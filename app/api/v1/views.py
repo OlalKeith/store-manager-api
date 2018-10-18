@@ -8,7 +8,7 @@ products = []  # using in memory , just a python list
 
 
 class Product(Resource):
-    """Class to handle post and get for product"""
+    """Class to handle post for product"""
 
     def post(self, name):
         """Method to add/create a new product"""
@@ -20,7 +20,7 @@ class Product(Resource):
             # getting the json payload from a request
 
         data = request.get_json()
-        product = {'id': len(products) + 1,
+        product = {'product_id': len(products) + 1,
                    'name': name,
                    'category': data['category'],
                    'price': data['price'],
@@ -29,3 +29,18 @@ class Product(Resource):
                    }
         products.append(product)
         return product, 201
+
+
+class ProductId(Resource):
+    """Class to handle the delete endpoint"""
+
+    def delete(self, id):
+            """Method to delete a single product"""
+            # the products variable in this block is the outer 'products =[]'
+            # variable
+            global products
+            # list after the result of filtering
+            # looking for all the elements except the one that is going to be
+            # delated
+            products = list(filter(lambda x: x['product_id'] != id, products))
+            return {'message': 'item deleted'}

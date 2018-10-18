@@ -19,3 +19,13 @@ class SalesTestCase(unittest.TestCase):
                                                  price='price')),
                                          content_type='application/json')
         self.assertEqual(create_sale.status_code, 201)
+
+    def test_to_delete_sale(self):
+        """Test method to delete a sale"""
+        delete_sale = self.client().delete('/api/v1/sale/1',
+                                           data=json.dumps(
+                                               dict(
+                                                   Quantity='Quantity',
+                                                   price='price')),
+                                           content_type='application/json')
+        self.assertEqual(delete_sale.status_code, 200)
