@@ -4,7 +4,7 @@ from app import create_app
 
 
 class SalesTestCase(unittest.TestCase):
-    """This is the class for product test cases"""
+    """This is the class for sales test cases"""
 
     def setUp(self):
         self.app = create_app('testing')
