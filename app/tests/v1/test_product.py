@@ -9,26 +9,25 @@ class ProductTestCase(unittest.TestCase):
     def setUp(self):
         self.app = create_app('testing')
         self.client = self.app.test_client
-        # self.my_product = {
-        #     'price': '50',
-        #     'name': 'pencil',
-        #     'category': 'stationery'
-        # }
 
     def test_to_add_product(self):
         """Test method to add product(POST request)"""
         add_product = self.client().post('/api/v1/product/pencil',
                                          data=json.dumps(
                                              dict(category='category',
+                                                  Quantity='Quantity',
+                                                  Description='Description',
                                                   price='price')),
                                          content_type='application/json')
         self.assertEqual(add_product.status_code, 201)
 
     def test_to_get_single_item(self):
         """Test method to get a single product(GET request)"""
-        get_product = self.client().get('/api/v1/product/pencil',
+        get_product = self.client().get('/api/v1/product/1',
                                         data=json.dumps(
                                             dict(category='category',
+                                                 Quantity='Quantity',
+                                                 Description='Description',
                                                  price='price')),
                                         content_type='application/json')
         self.assertEqual(get_product.status_code, 200)
