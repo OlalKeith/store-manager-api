@@ -29,3 +29,13 @@ class SalesTestCase(unittest.TestCase):
                                                    price='price')),
                                            content_type='application/json')
         self.assertEqual(delete_sale.status_code, 200)
+
+    def test_get_single_sale(self):
+        """Test method to get a single sale"""
+        get_single_sale = self.client().get('/api/v1/sale/1',
+                                            data=json.dumps(
+                                                dict(
+                                                    Quantity='Quantity',
+                                                    price='price')),
+                                            content_type='application/json')
+        self.assertEqual(get_single_sale.status_code, 200)

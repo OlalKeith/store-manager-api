@@ -11,7 +11,7 @@ sales = []  # using in memory , just a python list
 
 
 class Sales(Resource):
-    """Class to handle post for sales"""
+    """Class to handle post request , to create a sale"""
 
     def post(self, name):
         """Method to add/create a new product"""
@@ -35,6 +35,12 @@ class SalesId(Resource):
     """Class to handle delete of a sale"""
 
     def delete(self, id):
+        """Method to delete a single sale"""
         global sales
         sales = list(filter(lambda x: x['sales_id'] != id, sales))
         return {'message': 'sale deleted'}
+
+    def get(self, id):
+        """Method to get a single sale"""
+        sale = next(filter(lambda x: x['sales_id'] == id, sales), None)
+        return{'sale': sale}, 200 if sale else 404

@@ -35,12 +35,19 @@ class ProductId(Resource):
     """Class to handle the delete endpoint"""
 
     def delete(self, id):
-            """Method to delete a single product"""
-            # the products variable in this block is the outer 'products =[]'
-            # variable
-            global products
-            # list after the result of filtering
-            # looking for all the elements except the one that is going to be
-            # delated
-            products = list(filter(lambda x: x['product_id'] != id, products))
-            return {'message': 'item deleted'}
+        """Method to delete a single product"""
+        # the products variable in this block is the outer 'products =[]'
+        # variable
+        global products
+        # list after the result of filtering
+        # looking for all the elements except the one that is going to be
+        # delated
+        products = list(filter(lambda x: x['product_id'] != id, products))
+        return {'message': 'item deleted'}
+
+    def get(self, id):
+        """Method to get a single product"""
+        product = next(
+            filter(lambda x: x['product_id'] == id, products), None)
+
+        return{'product': product}, 200 if product else 404
