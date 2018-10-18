@@ -29,3 +29,11 @@ class Sales(Resource):
                 }
         sales.append(sale)
         return sale, 201
+
+
+class SalesId(Resource):
+    """Class to handle SalesId"""
+
+    def get(self, id):
+        sale = next(filter(lambda x: x['sales_id'] == id, sales), None)
+        return{'sale': sale}, 200 if sale else 404
