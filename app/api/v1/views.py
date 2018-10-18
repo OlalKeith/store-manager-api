@@ -23,7 +23,9 @@ class Product(Resource):
         product = {'id': len(products) + 1,
                    'name': name,
                    'category': data['category'],
-                   'price': data['price']
+                   'price': data['price'],
+                   'Quantity': data['Quantity'],
+                   'Description': data['Description']
                    }
         products.append(product)
         return product, 201

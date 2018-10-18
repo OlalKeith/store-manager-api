@@ -20,6 +20,8 @@ class ProductTestCase(unittest.TestCase):
         add_product = self.client().post('/api/v1/product/pencil',
                                          data=json.dumps(
                                              dict(category='category',
+                                                  Quantity='Quantity',
+                                                  Description='Description',
                                                   price='price')),
                                          content_type='application/json')
         self.assertEqual(add_product.status_code, 201)
@@ -28,7 +30,10 @@ class ProductTestCase(unittest.TestCase):
         """Test method to get all products"""
         get_all_products = self.client().get('/api/v1/products',
                                              data=json.dumps(
-                                                 dict(category='category',
-                                                      price='price')),
+                                                 dict(
+                                                     category='category',
+                                                     Quantity='Quantity',
+                                                     Description='Description',
+                                                     price='price')),
                                              content_type='application/json')
         self.assertEqual(get_all_products.status_code, 200)
