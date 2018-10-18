@@ -44,3 +44,10 @@ class SalesId(Resource):
         """Method to get a single sale"""
         sale = next(filter(lambda x: x['sales_id'] == id, sales), None)
         return{'sale': sale}, 200 if sale else 404
+
+
+class SalesList(Resource):
+    """Class to handle getting list of sales"""
+
+    def get(self):
+        return{'sales': sales}

@@ -51,3 +51,11 @@ class ProductId(Resource):
             filter(lambda x: x['product_id'] == id, products), None)
 
         return{'product': product}, 200 if product else 404
+
+
+class ProductList(Resource):
+    """Class to handle getting list of products"""
+
+    def get(self):
+        # returning a dic of products
+        return {'products': products}
