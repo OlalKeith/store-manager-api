@@ -3,7 +3,7 @@ import json
 from app import create_app
 
 
-class ProductTestCase(unittest.TestCase):
+class SalesTestCase(unittest.TestCase):
     """This is the class for product test cases"""
 
     def setUp(self):
@@ -14,8 +14,8 @@ class ProductTestCase(unittest.TestCase):
         """Test method to create a sale"""
         create_sale = self.client().post('/api/v1/sale/pencil',
                                          data=json.dumps(
-                                             dict(category='category',
-                                                  Quantity='Quantity',
-                                                  price='price')),
+                                             dict(
+                                                 Quantity='Quantity',
+                                                 price='price')),
                                          content_type='application/json')
         self.assertEqual(create_sale.status_code, 201)

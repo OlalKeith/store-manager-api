@@ -15,6 +15,8 @@ class ProductTestCase(unittest.TestCase):
         add_product = self.client().post('/api/v1/product/pencil',
                                          data=json.dumps(
                                              dict(category='category',
+                                                  Quantity='Quantity',
+                                                  Description='Description',
                                                   price='price')),
                                          content_type='application/json')
         self.assertEqual(add_product.status_code, 201)
