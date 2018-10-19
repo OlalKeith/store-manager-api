@@ -68,8 +68,7 @@ class ProductId(Resource):
 
     def get(self, id):
         """Method to get a single product"""
-        product = next(
-            filter(lambda x: x['product_id'] == id, products), None)
+        product = next(filter(lambda x: x['product_id'] == id, products), None)
 
         return{'product': product}, 200 if product else 404
 

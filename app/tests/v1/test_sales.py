@@ -52,7 +52,7 @@ class SalesTestCase(unittest.TestCase):
 
     def test_to_update_sale(self):
         """Test method to update sale"""
-        update_sale = self.client().put('/api/v1/product/pencil',
+        update_sale = self.client().put('/api/v1/sale/pencil',
                                         data=json.dumps(
                                             dict(
                                                 Quantity='Quantity',
