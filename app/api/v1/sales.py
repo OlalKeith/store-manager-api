@@ -34,7 +34,7 @@ class Sales(Resource):
         """Method to update/create a single sale"""
 
         data = request.get_json()
-        sale = next(filter(lambda x: x['name'] == name, sales), None)
+        sale = next(filter(lambda x: x['product'] == name, sales), None)
 
         if sale is None:  # if there is no item, create one
             sale = {'sales_id': len(sales) + 1,
@@ -45,7 +45,7 @@ class Sales(Resource):
                     }
             sales.append(sale)
 
-        # if it already exists
+        # if it already exists update
         else:
             sale.update(data)
         return sale, 200
