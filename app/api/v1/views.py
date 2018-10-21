@@ -1,15 +1,29 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
+from flask_httpauth import HTTPBasicAuth
 
 app = Flask(__name__)
+# app.config['SECRET_KEY'] = 'super-secret'
 api = Api(app)
+auth = HTTPBasicAuth()
+
+USER_DATA = {
+    "admin": "NotSoSecret"
+}
 
 products = []  # using in memory , just a python list
 
 
+@auth.verify_password
+def verify(username, password):
+    if not (username and password):
+        return False
+    return USER_DATA.get(username) == password
+
+
 class Product(Resource):
     """Class to handle post for product"""
-
+    @auth.login_required
     def post(self, name):
         """Method to add/create a new product"""
         if next(filter(lambda x: x['name'] == name, products), None):
