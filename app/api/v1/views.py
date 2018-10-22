@@ -8,7 +8,7 @@ products = []  # using in memory , just a python list
 
 
 class Product(Resource):
-    """Class to handle post for product"""
+    """Class to handle post"""
 
     def post(self, name):
         """Method to add/create a new product"""
