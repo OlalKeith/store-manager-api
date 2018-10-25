@@ -1,9 +1,8 @@
 products_item = []
-sales = []
 
 
 class ProductModel():
-    """docstring for  Product"""
+    """Class for  Product models"""
 
     def __init__(self, name, price, product_id, Category, Quantity, Description):
 
