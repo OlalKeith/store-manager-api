@@ -1,46 +1,77 @@
 from flask import Flask, request
-from flask_restful import Resource, Api
+from flask_restful import Resource, Api, reqparse
+from app.api.product_models import products_item, ProductModel
+
 
 app = Flask(__name__)
 api = Api(app)
 
-products = []  # using in memory , just a python list
-
 
 class Product(Resource):
     """Class to handle post for product"""
+    parser = reqparse.RequestParser()
+    parser.add_argument('price',
+                        type=float,
+                        required=True,
+                        help="This field is mandatory")
+    parser.add_argument('product_id',
+                        type=int,
+                        required=True,
+                        help="This field is mandatory")
+    # parser.add_argument('name', type=str)
+    parser.add_argument('Description',
+                        type=str,
+                        required=True,
+                        help="This field is mandatory ")
+    parser.add_argument('Quantity', type=int,
+                        required=True,
+                        help="This field is mandatory")
+    parser.add_argument('Category', type=str,
+                        required=True,
+                        help="This field is mandatory")
 
     def post(self, name):
         """Method to add/create a new product"""
-        if next(filter(lambda x: x['name'] == name, products), None):
+        product_results = list(
+            filter(lambda x: x['name'] == name, products_item))
+        if len(product_results):
             return {'message':
                     "A product with name '{}' already exists."
                     .format(name)}, 400
-            # accessing price and category key from the data dic
-            # getting the json payload from a request
 
-        data = request.get_json()
-        product = {'product_id': len(products) + 1,
-                   'name': name,
-                   'category': data['category'],
-                   'price': data['price'],
-                   'Quantity': data['Quantity'],
-                   'Description': data['Description']
-                   }
-        products.append(product)
-        return product, 201
+        request_data = Product.parser.parse_args()
+        # name = request_data['name']
+        price = request_data['price']
+        product_id = request_data['product_id']
+        Category = request_data['Category']
+        Quantity = request_data['Quantity']
+        Description = request_data['Description']
+
+        # import pdb; pdb.set_trace()
+        product = ProductModel(name,
+                               price, Category, Quantity, Description,
+                               product_id)
+
+        results = dict(name=name, price=price, product_id=product_id,
+                       Category=Category, Quantity=Quantity,
+                       Description=Description)
+        # import pdb; pdb.set_trace()
+        product.add_product()
+        # import pdb; pdb.set_trace()
+        return results, 201
 
 
 class ProductId(Resource):
     """Class to handle the delete endpoint"""
 
     def delete(self, id):
-            """Method to delete a single product"""
-            # the products variable in this block is the outer 'products =[]'
-            # variable
-            global products
-            # list after the result of filtering
-            # looking for all the elements except the one that is going to be
-            # delated
-            products = list(filter(lambda x: x['product_id'] != id, products))
-            return {'message': 'item deleted'}
+        """Method to delete a single product"""
+        # the products variable in this block is the outer 'products =[]'
+        # variable
+        global products_item
+        # list after the result of filtering
+        # looking for all the elements except the one that is going to be
+        # deleted
+        products_item = list(
+            filter(lambda x: x['product_id'] != id, products_item))
+        return {'message': 'item deleted'}
