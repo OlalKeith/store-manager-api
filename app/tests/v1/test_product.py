@@ -1,40 +1,35 @@
 import unittest
 import json
-import base64
 from app import create_app
 
+base_url = 'api/v1'
 
-class ProductTestCase(unittest.TestCase):
-    """This is the class for product test cases"""
+
+class Test_Product_Case(unittest.TestCase):
+    """Class for product test cases"""
 
     def setUp(self):
         self.app = create_app('testing')
-        self.client = self.app.test_client
-        self.valid_credentials = base64.b64encode(
-            b'admin:NotSoSecret').decode('utf-8')
-        self.invalid_credentials = base64.b64encode(
-            b'adm:NotSoSecret').decode('utf-8')
+        self.client = self.app.test_client()
+        self.app_context = self.app.app_context()
+        self.products = {
+            'category': 'stationery',
+            'product_id': 1,
+            'quantity': 5,
+            'description': 'I use to write with it',
+            'price': 30.00
+        }
 
-    def test_to_add_product(self):
-        """Test method to add product(POST request)"""
-        add_product = self.client().post(
-            '/api/v1/product/pencil',
-            data=json.dumps(
-                dict(category='category',
-                     Quantity='Quantity',
-                     Description='Description',
-                     price='price')),
-            content_type='application/json',
-            headers={'Authorization': 'Basic ' + self.valid_credentials})
-        self.assertEqual(add_product.status_code, 201)
+    def test_to_create_product(self):
+        """Test method to add product"""
+
+        create_product = self.client.post(base_url + '/product/pencil', data=json.dumps(
+            self.products), content_type='application/json')
+        self.assertEqual(create_product.status_code, 201)
 
     def test_to_get_single_item(self):
         """Test method to get a single product(GET request)"""
-        get_product = self.client().get('/api/v1/product/1',
-                                        data=json.dumps(
-                                            dict(category='category',
-                                                 Quantity='Quantity',
-                                                 Description='Description',
-                                                 price='price')),
-                                        content_type='application/json')
+        get_product = self.client.get(base_url + '/product/1',
+                                      data=json.dumps(self.products),
+                                      content_type='application/json')
         self.assertEqual(get_product.status_code, 200)

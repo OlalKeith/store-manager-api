@@ -17,7 +17,7 @@ class SalesView(Resource):
                         type=int,
                         required=True,
                         help="This field is mandatory")
-    parser.add_argument('Quantity', type=int,
+    parser.add_argument('quantity', type=int,
                         required=True,
                         help="This field is mandatory")
 
