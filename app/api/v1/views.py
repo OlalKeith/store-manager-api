@@ -53,7 +53,7 @@ class ProductView(Resource):
                           product_id)
 
         results = dict(name=name, price=price, product_id=product_id,
-                       category=category, cuantity=quantity, description=description)
+                       category=category, quantity=quantity, description=description)
 
         # import pdb; pdb.set_trace()
         product.add_product()
@@ -92,11 +92,11 @@ class ProductId(Resource):
         """Method to delete a single product"""
         # the products variable in this block is the outer 'products =[]'
         # variable
-        global products
+        global products_item
         # list after the result of filtering
         # looking for all the elements except the one that is going to be
         # delated
-        products = list(
+        products_item = list(
             filter(lambda x: x['product_id'] != product_id, products_item))
         return {'message': 'item deleted'}
 

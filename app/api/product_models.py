@@ -14,8 +14,8 @@ class Product():
         self.product_id = product_id
 
     def add_product(self):
-        product = {
-
+        product = {  
+# keys and values
             'name': self.name,
             'category': self.category,
             'price': self.price,
