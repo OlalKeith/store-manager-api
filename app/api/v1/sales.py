@@ -75,10 +75,10 @@ class SalesView(Resource):
 class SalesId(Resource):
     """Class to handle delete of a sale"""
 
-    def delete(self, id):
+    def delete(self, sales_id):
         """Method to delete a single sale"""
         global sales
-        sales = list(filter(lambda x: x['sales_id'] != id, sales))
+        sales = list(filter(lambda x: x['sales_id'] != sales_id, sales))
         return {'message': 'sale deleted'}
 
     def get(self, sales_id):

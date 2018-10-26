@@ -101,15 +101,16 @@ class ProductId(Resource):
         return {'message': 'item deleted'}
 
     def get(self, product_id):
-        # product = next(
-        #     filter(lambda x: x['product_id'] == product_id, products_item), None)
-        # return{'product': product}, 200 if product else 404
-        product = products_item
-        product = [product for product in products_item if
-                   product['product_id'] == product_id]
-        if product:
-            return Product.get(product_id=product_id), 200
-        return {'message': 'product not found'}, 404
+        product = next(
+            filter(lambda x: x['product_id'] == product_id, products_item), None)
+        return{'product': product}, 200 if product else 404
+
+    # product_results = [
+    # product_results for product_results in products_item if product_results['product_id'] == product_id]
+    # if len(product_results) == 0:
+    #     return {'Error': 'product not found'}, 404
+    # data = (product_results)
+    # return data, 200 
 
 
 class ProductList(Resource):
