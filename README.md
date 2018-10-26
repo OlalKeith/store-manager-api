@@ -4,3 +4,5 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/3c6b96e9d1dae3c79a23/maintainability)](https://codeclimate.com/github/OlalKeith/store-manager-api/maintainability)
 
 # store-manager-api
+
+

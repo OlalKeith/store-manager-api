@@ -48,10 +48,7 @@ class SalesTestCase(unittest.TestCase):
 
     def test_to_update_sale(self):
         """Test method to update sale"""
-        update_sale = self.client().put('/api/v1/sale/pencil',
-                                        data=json.dumps(
-                                            dict(
-                                                Quantity='Quantity',
-                                                price='price')),
-                                        content_type='application/json')
+        update_sale = self.client.put(base_url + '/sale/pencil',
+                                      data=json.dumps(self.sales),
+                                      content_type='application/json')
         self.assertEqual(update_sale.status_code, 200)

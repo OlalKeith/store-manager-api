@@ -54,6 +54,7 @@ class ProductView(Resource):
 
         results = dict(name=name, price=price, product_id=product_id,
                        category=category, cuantity=quantity, description=description)
+
         # import pdb; pdb.set_trace()
         product.add_product()
         # import pdb; pdb.set_trace()
@@ -63,22 +64,25 @@ class ProductView(Resource):
         """Method to update/create a single product"""
         # getting data from the request
         data = request.get_json()
-        product = next(filter(lambda x: x['name'] == name, products), None)
+        product_results = next(
+            # getting the next available value of that filter
+            # object, or we're getting none if there are none left
+            filter(lambda x: x['name'] == name, products_item), None)
 
-        if product is None:  # if there is no item, create one
-            product = {'product_id': len(products) + 1,
-                       'name': name,
-                       'category': data['category'],
-                       'price': data['price'],
-                       'Quantity': data['Quantity'],
-                       'Description': data['Description']
-                       }
-            products.append(product)
+        if product_results is None:  # if there is no item, create one
+            product_results = {'product_id': len(products_item) + 1,
+                               'name': name,
+                               'category': data['category'],
+                               'price': data['price'],
+                               'quantity': data['quantity'],
+                               'description': data['description']
+                               }
+            products_item.append(product_results)
 
         # if it already exists
         else:
-            product.update(data)
-        return product, 200
+            product_results.update(data)
+        return product_results, 200
 
 
 class ProductId(Resource):

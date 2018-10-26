@@ -1,9 +1,13 @@
 from flask import Flask, request
 from flask_restful import Resource, Api, reqparse
 from app.api.sales_models import sales, Sales
+from datetime import datetime
+
 
 app = Flask(__name__)
 api = Api(app)
+
+my_date = datetime.now().replace(microsecond=0)
 
 
 class SalesView(Resource):
@@ -20,7 +24,6 @@ class SalesView(Resource):
     parser.add_argument('quantity', type=int,
                         required=True,
                         help="This field is mandatory")
-
     parser.add_argument('date_created', type=int)
 
     def post(self, name):
@@ -57,13 +60,13 @@ class SalesView(Resource):
         if sale is None:  # if there is no item, create one
             sale = {'sales_id': len(sales) + 1,
                     'product': name,
-                    'Quantity': data['Quantity'],
+                    'quantity': data['quantity'],
                     'price': data['price'],
-                    'Date': my_date.isoformat()
+                    'date_created': my_date.isoformat()
                     }
             sales.append(sale)
 
-        # if it already exists
+        # if it already exists update
         else:
             sale.update(data)
         return sale, 200
