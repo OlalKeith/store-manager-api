@@ -6,7 +6,7 @@ base_url = 'api/v1'
 
 
 class SalesTestCase(unittest.TestCase):
-    """This is the class for sales test cases"""
+    """This is the class for product test cases"""
 
     def setUp(self):
         self.app = create_app('testing')
@@ -34,12 +34,9 @@ class SalesTestCase(unittest.TestCase):
 
     def test_get_single_sale(self):
         """Test method to get a single sale"""
-        get_single_sale = self.client().get('/api/v1/sale/1',
-                                            data=json.dumps(
-                                                dict(
-                                                    Quantity='Quantity',
-                                                    price='price')),
-                                            content_type='application/json')
+        get_single_sale = self.client.get(base_url + '/sale/1',
+                                          data=json.dumps(self.sales),
+                                          content_type='application/json')
         self.assertEqual(get_single_sale.status_code, 200)
 
     def test_to_get_all_sales(self):

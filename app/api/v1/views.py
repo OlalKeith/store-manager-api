@@ -85,7 +85,7 @@ class ProductView(Resource):
 class ProductId(Resource):
     """Class to handle the delete endpoint"""
 
-    def delete(self, id):
+    def delete(self, product_id):
         """Method to delete a single product"""
         # the products variable in this block is the outer 'products =[]'
         # variable
@@ -93,14 +93,19 @@ class ProductId(Resource):
         # list after the result of filtering
         # looking for all the elements except the one that is going to be
         # delated
-        products = list(filter(lambda x: x['product_id'] != id, products))
+        products = list(filter(lambda x: x['product_id'] != product_id, products_item))
         return {'message': 'item deleted'}
 
-    def get(self, id):
-        """Method to get a single product"""
-        product = next(filter(lambda x: x['product_id'] == id, products), None)
-
-        return{'product': product}, 200 if product else 404
+    def get(self, product_id):
+        # product = next(
+        #     filter(lambda x: x['product_id'] == product_id, products_item), None)
+        # return{'product': product}, 200 if product else 404
+        product = products_item
+        product = [product for product in products_item if
+                   product['product_id'] == product_id]
+        if product:
+            return Product.get(product_id=product_id), 200
+        return {'message': 'product not found'}, 404
 
 
 class ProductList(Resource):

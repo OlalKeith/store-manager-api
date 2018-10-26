@@ -38,13 +38,9 @@ class Test_Product_Case(unittest.TestCase):
 
     def test_to_get_single_item(self):
         """Test method to get a single product(GET request)"""
-        get_product = self.client().get('/api/v1/product/1',
-                                        data=json.dumps(
-                                            dict(category='category',
-                                                 Quantity='Quantity',
-                                                 Description='Description',
-                                                 price='price')),
-                                        content_type='application/json')
+        get_product = self.client.get(base_url + '/product/1',
+                                      data=json.dumps(self.products),
+                                      content_type='application/json')
         self.assertEqual(get_product.status_code, 200)
 
     def test_to_get_all_products(self):
