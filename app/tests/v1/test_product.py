@@ -13,10 +13,10 @@ class Test_Product_Case(unittest.TestCase):
         self.client = self.app.test_client()
         self.app_context = self.app.app_context()
         self.products = {
-            'Category': 'stationery',
+            'category': 'stationery',
             'product_id': 1,
-            'Quantity': 5,
-            'Description': 'I use to write with it',
+            'quantity': 5,
+            'description': 'I use to write with it',
             'price': 30.00
         }
 

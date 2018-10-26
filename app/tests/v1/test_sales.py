@@ -12,7 +12,7 @@ class SalesTestCase(unittest.TestCase):
         self.app = create_app('testing')
         self.client = self.app.test_client()
         self.app_context = self.app.app_context()
-        self.sales = {'Quantity': 5,
+        self.sales = {'quantity': 5,
                       'price': 30.00,
                       'sales_id': 1,
                       }
