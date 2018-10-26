@@ -109,3 +109,10 @@ class ProductList(Resource):
     def get(self):
         # returning a dic of products
         return {'products': products}
+        global products_item
+        # list after the result of filtering
+        # looking for all the elements except the one that is going to be
+        # deleted
+        products_item = list(
+            filter(lambda x: x['product_id'] != id, products_item))
+        return {'message': 'item deleted'}

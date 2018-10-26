@@ -47,6 +47,7 @@ class SalesView(Resource):
 
         sale.add_sales()
         return results, 201
+<<<<<<< HEAD
 
     def put(self, name):
         """Method to update/create a single sale"""
@@ -67,6 +68,8 @@ class SalesView(Resource):
         else:
             sale.update(data)
         return sale, 200
+=======
+>>>>>>> 206c6814dc9f78577544b456127dc7de4240ac76
 
 
 class SalesId(Resource):
