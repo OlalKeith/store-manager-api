@@ -53,8 +53,7 @@ class ProductView(Resource):
                           product_id)
 
         results = dict(name=name, price=price, product_id=product_id,
-                       category=category, quantity=quantity,
-                       description=description)
+                       category=category, cuantity=quantity, description=description)
         # import pdb; pdb.set_trace()
         product.add_product()
         # import pdb; pdb.set_trace()
@@ -93,7 +92,8 @@ class ProductId(Resource):
         # list after the result of filtering
         # looking for all the elements except the one that is going to be
         # delated
-        products = list(filter(lambda x: x['product_id'] != product_id, products_item))
+        products = list(
+            filter(lambda x: x['product_id'] != product_id, products_item))
         return {'message': 'item deleted'}
 
     def get(self, product_id):
@@ -113,11 +113,5 @@ class ProductList(Resource):
 
     def get(self):
         # returning a dic of products
-        return {'products': products}
-        global products_item
-        # list after the result of filtering
-        # looking for all the elements except the one that is going to be
-        # deleted
-        products_item = list(
-            filter(lambda x: x['product_id'] != id, products_item))
-        return {'message': 'item deleted'}
+
+        return {'products': products_item}

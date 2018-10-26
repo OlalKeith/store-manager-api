@@ -41,12 +41,9 @@ class SalesTestCase(unittest.TestCase):
 
     def test_to_get_all_sales(self):
 
-        get_all_sales = self.client().get('/api/v1/sales',
-                                          data=json.dumps(
-                                              dict(
-                                                  Quantity='Quantity',
-                                                  price='price')),
-                                          content_type='application/json')
+        get_all_sales = self.client.get(base_url + '/sales',
+                                        data=json.dumps(self.sales),
+                                        content_type='application/json')
         self.assertEqual(get_all_sales.status_code, 200)
 
     def test_to_update_sale(self):

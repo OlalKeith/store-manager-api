@@ -45,14 +45,9 @@ class Test_Product_Case(unittest.TestCase):
 
     def test_to_get_all_products(self):
         """Test method to get all products"""
-        get_all_products = self.client().get('/api/v1/products',
-                                             data=json.dumps(
-                                                 dict(
-                                                     category='category',
-                                                     Quantity='Quantity',
-                                                     Description='Description',
-                                                     price='price')),
-                                             content_type='application/json')
+        get_all_products = self.client.get(base_url + '/products',
+                                           data=json.dumps(self.products),
+                                           content_type='application/json')
         self.assertEqual(get_all_products.status_code, 200)
 
     def test_to_update_product(self):
