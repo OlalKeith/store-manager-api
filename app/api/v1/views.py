@@ -1,13 +1,13 @@
 from flask import Flask, request
 from flask_restful import Resource, Api, reqparse
-from app.api.product_models import products_item, ProductModel
+from app.api.product_models import products_item, Product
 
 
 app = Flask(__name__)
 api = Api(app)
 
 
-class Product(Resource):
+class ProductView(Resource):
     """Class to handle post for product"""
     parser = reqparse.RequestParser()
     parser.add_argument('price',
@@ -19,14 +19,14 @@ class Product(Resource):
                         required=True,
                         help="This field is mandatory")
     # parser.add_argument('name', type=str)
-    parser.add_argument('Description',
+    parser.add_argument('description',
                         type=str,
                         required=True,
                         help="This field is mandatory ")
-    parser.add_argument('Quantity', type=int,
+    parser.add_argument('quantity', type=int,
                         required=True,
                         help="This field is mandatory")
-    parser.add_argument('Category', type=str,
+    parser.add_argument('category', type=str,
                         required=True,
                         help="This field is mandatory")
 
@@ -39,22 +39,22 @@ class Product(Resource):
                     "A product with name '{}' already exists."
                     .format(name)}, 400
 
-        request_data = Product.parser.parse_args()
+        request_data = ProductView.parser.parse_args()
         # name = request_data['name']
         price = request_data['price']
         product_id = request_data['product_id']
-        Category = request_data['Category']
-        Quantity = request_data['Quantity']
-        Description = request_data['Description']
+        category = request_data['category']
+        quantity = request_data['quantity']
+        description = request_data['description']
 
         # import pdb; pdb.set_trace()
-        product = ProductModel(name,
-                               price, Category, Quantity, Description,
+        product = Product(name,
+                               price, category, quantity, description,
                                product_id)
 
         results = dict(name=name, price=price, product_id=product_id,
-                       Category=Category, Quantity=Quantity,
-                       Description=Description)
+                       category=category, quantity=quantity,
+                       description=description)
         # import pdb; pdb.set_trace()
         product.add_product()
         # import pdb; pdb.set_trace()
