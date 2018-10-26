@@ -2,32 +2,34 @@ import unittest
 import json
 from app import create_app
 
+base_url = 'api/v1'
 
-class ProductTestCase(unittest.TestCase):
-    """This is the class for product test cases"""
+
+class Test_Product_Case(unittest.TestCase):
+    """Class for product test cases"""
 
     def setUp(self):
         self.app = create_app('testing')
-        self.client = self.app.test_client
+        self.client = self.app.test_client()
+        self.app_context = self.app.app_context()
+        self.products = {
+            'category': 'stationery',
+            'product_id': 1,
+            'quantity': 5,
+            'description': 'I use to write with it',
+            'price': 30.00
+        }
 
-    def test_to_add_product(self):
+    def test_to_create_product(self):
         """Test method to add product"""
-        add_product = self.client().post('/api/v1/product/pencil',
-                                         data=json.dumps(
-                                             dict(category='category',
-                                                  Quantity='Quantity',
-                                                  Description='Description',
-                                                  price='price')),
-                                         content_type='application/json')
-        self.assertEqual(add_product.status_code, 201)
+
+        create_product = self.client.post(base_url + '/product/pencil', data=json.dumps(
+            self.products), content_type='application/json')
+        self.assertEqual(create_product.status_code, 201)
 
     def test_to_update_product(self):
         """Test method to update product"""
-        update_product = self.client().put('/api/v1/product/pencil',
-                                           data=json.dumps(
-                                               dict(category='category',
-                                                    Quantity='Quantity',
-                                                    Description='Description',
-                                                    price='price')),
-                                           content_type='application/json')
+        update_product = self.client.put(base_url + '/product/pencil',
+                                         data=json.dumps(self.products),
+                                         content_type='application/json')
         self.assertEqual(update_product.status_code, 200)
